@@ -19,22 +19,46 @@
   		    	<script type="text/javascript" src="assets/dist/paper-full.js"></script>
 
 
-			<!-- create a circle whenever the user presses a key -->
 			<script type="text/paperscript" canvas="myCanvas">
-				var radius = 20;
+				var radius = 100;
+				var circles = [];
 
-
+				// create a circle whenever the user presses a key
 				function onKeyDown(event){
+
+					// get the viewport dimensions
+					// this is important as to make the app
+					// responsive to the browser screen size
 					var limits = new Point(view.size.width, view.size.height);
 
+					// generate our random points bounded
+					// by our viewport limits
 					var randomXY = Point.random();
 					var point = limits * randomXY;
-					new Path.Circle(point,radius).fillColor = "#33cc33";
+
+					// push the circles into an array
+					// this is to identify which circle to animate
+					// tracking it by frame
+					var newCircle = new Path.Circle(point,radius);
+					newCircle.fillColor = "#33cc33";
+
+					circles.push(newCircle);
+				}
+
+				// animate the circle
+				function onFrame(event){
+					for (var ctr = 0; ctr < circles.length; ctr++){
+
+						// everytime a frame updates
+						// we change the color
+						circles[ctr].fillColor.hue+=1;
+						circles[ctr].scale(.9);
+					}
+
 				}
 		    	</script>
 	</head>
 	<body>
 		<canvas id="myCanvas" resize></canvas>
-		<script type="text/javascript" src="assets/myJS/circle.js"></script>
 	</body>
 </html>
