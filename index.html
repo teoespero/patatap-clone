@@ -17,14 +17,24 @@
 			<meta name="description" content="">
 
   		    	<script type="text/javascript" src="assets/dist/paper-full.js"></script>
-		    	<script type="text/paperscript" canvas="myCanvas">
-		    		var myCircle = new Path.Circle(new Point(100,70),50);
 
-				myCircle.fillColor = "#000000";
+
+			<!-- create a circle whenever the user presses a key -->
+			<script type="text/paperscript" canvas="myCanvas">
+				var radius = 20;
+
+
+				function onKeyDown(event){
+					var limits = new Point(view.size.width, view.size.height);
+
+					var randomXY = Point.random();
+					var point = limits * randomXY;
+					new Path.Circle(point,radius).fillColor = "#33cc33";
+				}
 		    	</script>
 	</head>
 	<body>
 		<canvas id="myCanvas" resize></canvas>
-
+		<script type="text/javascript" src="assets/myJS/circle.js"></script>
 	</body>
 </html>
